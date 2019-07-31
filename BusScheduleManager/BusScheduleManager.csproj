@@ -19,4 +19,10 @@
     <ProjectReference Include="..\BusSchedulemanager.Utilities\BusSchedulemanager.Utilities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Views\index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

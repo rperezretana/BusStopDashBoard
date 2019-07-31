@@ -12,7 +12,7 @@
     <div style="padding-left:1em">
         <h1>Welcome to the bus company</h1>
         <p>The next is the schedule based on your current time <b ng-controller='TimeCtrl'>{{ clock | date:'HH:mm:ss'}}</b></p>
-        <p>Want to play with teh API? <a target="_blank" href="../GraphQL/">Here</a> is a GraphQL endpoint, paste something like this in the editor: <code>{busStops(hour: 15, minute:1){ name, nextStop, driverAssigned}}</code> </p>
+        <p>Want to play with teh API? <a target="_blank" href="../GraphQL/?query=%7B%20busStops(hour%3A%2012%2C%20minute%3A6)%7B%20%20name%2C%20%20nextStop%2C%20%20forStop%20%20%7D%20%7D%0A">Here</a> is a GraphQL endpoint, paste something like this in the editor: <code>{busStops(hour: 15, minute:1){ name, nextStop, driverAssigned}}</code> </p>
         <div ng-controller='ScheduleCtrl'>
             <table class="table table-dark">
                 <thead>

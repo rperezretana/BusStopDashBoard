@@ -16,7 +16,7 @@ How to Run it?
     
 2) Run on deployed version.
 
-   In case of any inconvenience of not hagin VS2019 installed ( it take hours to do so), I deployed a version for quick access here:       http://busstopdashboardrolando.azurewebsites.net/views/index.html
+   In case of any inconvenience of not having VS2019 installed ( it take hours to do so), I deployed a version for quick access here:       http://busstopdashboardrolando.azurewebsites.net/views/index.html
 
 
 # Some Explanation:

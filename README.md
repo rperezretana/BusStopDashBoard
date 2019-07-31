@@ -15,7 +15,8 @@ How to Run it?
  - Press Open in IIS Express. An instance of the application will open in the browser.
     
 2) Run on deployed version.
-   In case of any inconvenience of not haginv VS installed ( it take hours to do so), I deployed a version for quick access here:       http://busstopdashboardrolando.azurewebsites.net/views/index.html
+
+   In case of any inconvenience of not hagin VS2019 installed ( it take hours to do so), I deployed a version for quick access here:       http://busstopdashboardrolando.azurewebsites.net/views/index.html
 
 
 # Some Explanation:

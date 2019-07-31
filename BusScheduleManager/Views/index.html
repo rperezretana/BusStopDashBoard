@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Bus Schedule</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
+</head>
+<body ng-app="busSchedule">
+    <div style="padding-left:1em">
+        <h1>Welcome to the bus company</h1>
+        <p>The next is the schedule based on your current time <b ng-controller='TimeCtrl'>{{ clock | date:'HH:mm:ss'}}</b></p>
+        <p>Want to play with teh API? <a target="_blank" href="../GraphQL/">Here</a> is a GraphQL endpoint, paste something like this in the editor: <code>{busStops(hour: 15, minute:1){ name, nextStop, driverAssigned}}</code> </p>
+        <div ng-controller='ScheduleCtrl'>
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th>Stop</th>
+                        <th>Route/Arrival</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="e in BusStopsData.busStops">
+                        <td>Stop {{e.forStop}} </td>
+                        <td>
+                            {{e.name}}
+                            <span ng-switch="e.nextStop[0]">
+                                <span ng-switch-when="0">ARRIVED/BOARDING!</span>
+                                <span ng-switch-default>arrives in {{e.nextStop[0]}} minutes,</span>
+                                then the next after will arrive after {{e.nextStop[1]}} minutes.
+                            </span>
+                        </td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+        <script type="text/javascript">
+            //Must be moved to a bundled file.
+            var module = angular.module('busSchedule', []);
+            var BusStopsData = { busStops: [] };
+
+            module.controller('TimeCtrl', function ($scope, $interval) {
+                var tick = function () {
+                    var now = new Date();
+                    $scope.clock = now;
+                    if (now.getSeconds() == 0) {
+                        UpdateSchedule(now.getHours(), now.getMinutes());
+                        $scope.BusStopsData = BusStopsData;
+                        console.log("Schedule updated.");
+                    }
+                }
+                tick();
+                $interval(tick, 1000);
+            });
+            module.controller('ScheduleCtrl', function ($scope, $http) {
+                $scope.BusStopsData = BusStopsData;
+                console.log("Schedule set up.");
+            });
+
+
+            /// this method request the data to the web service on demand.
+            var UpdateSchedule = function (hour, minute, $scope) {
+                var stockQuery = '{ busStops(hour: ' + hour + ', minute: ' + minute + '){  name,  nextStop,  forStop   } }';
+                fetch('/graphql', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    },
+                    body: JSON.stringify({ query: stockQuery })
+                })
+                    .then(r => r.json())
+                    .then(data => BusStopsData.busStops = data.data.busStops)
+                    .then(data => console.log('data returned:', data));
+            }; //UpdateSchedule
+
+            //run for the first time:
+            var nowFirstTime = new Date();
+            UpdateSchedule(nowFirstTime.getHours(), nowFirstTime.getMinutes());
+
+        </script>
+</body>
+</html>

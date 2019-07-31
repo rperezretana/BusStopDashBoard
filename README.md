@@ -7,6 +7,7 @@ How to Run it?
 2 options:
 
 1) Download and run on computer.
+
     1 - It may require Visual Studio 2019.
     2 - Download the project and open the file "BusSchedulemanager.sln" using VS 2019.
     3 - Press Open in IIS Express. An instance of the application will open in the browser.
@@ -16,6 +17,7 @@ I deployed a version for quick access here: http://busstopdashboardrolando.azure
 
 
 # Some Explanation:
+
 - The start file will be "/views/index.html", this will have a light angular 1 application ( it was fast and easy to set up).
 - It will request query the bus schedule.
 - The api is limited to the requirements of the task.

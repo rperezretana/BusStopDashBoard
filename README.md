@@ -12,11 +12,3 @@ How to Run it?
     
 # 2) Run on deployed version.
 I deployed a version for quick access here: http://busstopdashboardrolando.azurewebsites.net/views/index.html
-
-# 3) Deploy directly to Azure if you have a free account.
-    Here is an option to deploy the project directly to Azure.
-    I recomend this only if you already have a free Azure Account and if you got experience deploying .NET Core Applications, otherwise dont need to bother. It may result easier if you just download it and run it.
-    <a href="https://azuredeploy.net/" target="_blank">
-        <img src="http://azuredeploy.net/deploybutton.png"/>
-    </a>
-    It will open a wizard to deploy to azure, you must have an account, if you dont have one.

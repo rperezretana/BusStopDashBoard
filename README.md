@@ -8,14 +8,14 @@ How to Run it?
 
 1) Download and run on computer.
 
-1 - It may require Visual Studio 2019.
+ - It may require Visual Studio 2019.
 
-2 - Download the project and open the file "BusSchedulemanager.sln" using VS 2019.
+ - Download the project and open the file "BusSchedulemanager.sln" using VS 2019.
 
-3 - Press Open in IIS Express. An instance of the application will open in the browser.
+ - Press Open in IIS Express. An instance of the application will open in the browser.
     
 2) Run on deployed version.
-I deployed a version for quick access here: http://busstopdashboardrolando.azurewebsites.net/views/index.html
+   In case of any inconvenience of not haginv VS installed ( it take hours to do so), I deployed a version for quick access here:       http://busstopdashboardrolando.azurewebsites.net/views/index.html
 
 
 # Some Explanation:

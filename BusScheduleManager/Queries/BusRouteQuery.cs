@@ -17,6 +17,7 @@ namespace BusScheduleManager.Queries
         public BusRouteQuery(IBusRouteRepository busRouteRepository)
         {
             Field<ListGraphType<BusRouteType>>("BusStops",
+                //arguments for the current query.
                 arguments: new QueryArguments(new QueryArgument<IntGraphType> { Name = "hour" }, new QueryArgument<IntGraphType> { Name = "minute" }),
                 resolve: context => {
                         var hour = context.GetArgument<int>("hour");

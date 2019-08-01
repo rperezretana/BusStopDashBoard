@@ -81,15 +81,17 @@ namespace BusSchedulemanager.DataAccess.Repositories
             if (CalculatedRoutsCached.ContainsKey(keyDictionary))
                 return CalculatedRoutsCached[keyDictionary];
 
-            //Using the minutes we get the has index of the schedule
+            //Using the minutes we get the hash index of the schedule
             var stopIndex = GetStopIndex(totalMinutes);
-            //create the list restul to be returned.
+            //create the list result to be returned.
             var result = new List<BusRoute>();
 
             for(int routeIndex = 0; routeIndex < _dbContext.BusRoutes.Count; routeIndex++)
             {
                 var stopInList = RoutsSchedule[stopIndex][routeIndex];
                 //The next is the calcuation of the minutes left for the next route, based on the current time, current Route, SERVICED_EVERY_X_MINUTES and TIME_BETWEEN_STOPS
+                //This could be calculated by route, independenly too, if each rout had different numbers or per stop.
+                //It would be necessary to store them in the DB but easily accesible too.
                 var calculatedDifference = (SERVICED_EVERY_X_MINUTES - (totalMinutes % SERVICED_EVERY_X_MINUTES) + (routeIndex * TIME_BETWEEN_STOPS) + (stopNumber * TIME_BETWEEN_STOPS)) % SERVICED_EVERY_X_MINUTES;
 
                 //For the sake of te exaple a simple calculation of the second arrival time.
@@ -120,6 +122,7 @@ namespace BusSchedulemanager.DataAccess.Repositories
         public IEnumerable<BusRoute> GetRoutsForAllTheStops(int hour, int minute)
         {
             var allCurrentSchedule = new List<BusRoute>();
+            //if the stops dont cahnge regularly this could be cached too.
             foreach (var bStop in _dbContext.BusStops)
             {
                 allCurrentSchedule.AddRange(GetRoutsForStop(hour, minute, bStop.Id, 2 /*2 stops*/));
@@ -130,8 +133,8 @@ namespace BusSchedulemanager.DataAccess.Repositories
         private int GetStopIndex(int totalMinutes)
         {
             //The maximum value in the matrix we are going to use.
-            var maxThreshoild = SERVICED_EVERY_X_MINUTES * _dbContext.BusStops.Count;
-            totalMinutes = totalMinutes % maxThreshoild;
+            var maxThreshold = SERVICED_EVERY_X_MINUTES * _dbContext.BusStops.Count;
+            totalMinutes = totalMinutes % maxThreshold;
 
             //Depending of the number of routes we treat it as columns.
             return totalMinutes / SERVICED_EVERY_X_MINUTES; //number from 0 to 10 for the currrent 10 stops.

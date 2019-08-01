@@ -22,7 +22,7 @@ How to Run it?
 # Some Explanation:
 
 - The start file will be "/views/index.html", this will have a light angular 1 application ( it was fast and easy to set up).
-- It will request query the bus schedule.
+- It will send the query to the API.
 - The api is limited to the requirements of the task.
 - The request will be sent to "BusScheduleManager/Controllers/GraphQLController.cs" at the ActionResult Post.
 - This will be proccessed and send to the document executer that will invoke at "BusScheduleManager/Queries/BusRouteQuery.cs"

@@ -1,3 +1,5 @@
+Experimenting wieh graphql with C# .NET
+
 # BusStopDashBoard
 Project that shows the arrival time based on the description of the task.
 The project is a simple GraphQL API + a single Angular 1 page to display the results.
